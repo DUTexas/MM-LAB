@@ -125,6 +125,8 @@ memory_block_t *coalesce(memory_block_t *block) {
  */
 int uinit() {
     //create memory block and free list
+        free_head = csbrk(PAGESIZE);
+    put_block(free_head, PAGESIZE, false);
     return 0;
 }
 
@@ -133,15 +135,14 @@ int uinit() {
  */
 void *umalloc(size_t size) {
     //find the first location large enough to store vaiable and return it
-    memory_block_t *curBlock = free_head;
-    void* p = csbrk(0);
-    while(curBlock->next != NULL){
-       curBlock = curBlock->next;
-    }
+    //memory_block_t *curBlock = free_head;
+    //void* p = csbrk(size);
+    //while(curBlock->next != NULL){
+    //   curBlock = curBlock->next;
+    //}
     //set this as global
-    
-    put_block(curBlock, size, true);
-    return p;
+    //printf("test");
+    return (void *) csbrk(size * 16);
 }
 
 /*
