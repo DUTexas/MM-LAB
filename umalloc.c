@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <assert.h>
 
-const char author[] = ANSI_BOLD ANSI_COLOR_RED "REPLACE THIS WITH YOUR NAME AND UT EID" ANSI_RESET;
+const char author[] = ANSI_BOLD ANSI_COLOR_RED "Daniel Kuddes DDK344" ANSI_RESET;
 
 /*
  * The following helpers can be used to interact with the memory_block_t
@@ -124,6 +124,7 @@ memory_block_t *coalesce(memory_block_t *block) {
  * along with allocating initial memory.
  */
 int uinit() {
+    //create memory block and free list
     return 0;
 }
 
@@ -131,7 +132,16 @@ int uinit() {
  * umalloc -  allocates size bytes and returns a pointer to the allocated memory.
  */
 void *umalloc(size_t size) {
-    return NULL;
+    //find the first location large enough to store vaiable and return it
+    memory_block_t *curBlock = free_head;
+    void* p = csbrk(0);
+    while(curBlock->next != NULL){
+       curBlock = curBlock->next;
+    }
+    //set this as global
+    
+    put_block(curBlock, size, true);
+    return p;
 }
 
 /*
